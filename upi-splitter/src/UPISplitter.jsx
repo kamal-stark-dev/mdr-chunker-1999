@@ -173,6 +173,15 @@ export default function UPISplitter() {
             <button className="generate-btn" onClick={handleGenerate}>
               Generate tickets
             </button>
+            <p className="secure-line">
+              <i class="ri-git-repository-private-line"></i> Payment details
+              never leave your browser.
+            </p>
+
+            <p className="disclaimer">
+              Disclaimer: Created for fun only. This isn't legal or financial
+              advice, and shouldn't be used for real transactions.
+            </p>
           </div>
         </div>
 
@@ -189,6 +198,10 @@ export default function UPISplitter() {
                 {chunks.length} ticket{chunks.length > 1 ? "s" : ""}
               </p>
               <div className="stubs">
+                <p className="info-paragraph">
+                  Scan each QR once and confirm the recipient and the amount in
+                  your UPI app. Note that payment status isn't tracked here.
+                </p>
                 {chunks.map((c, i) => (
                   <div key={i} className="stub">
                     <div className="stub-qr">

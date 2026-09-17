@@ -79,7 +79,7 @@ export default function UPISplitter() {
         <div className="panel panel-form">
           <div className="header-wrapper">
             <div className="ticket-header">
-              <h1>Split the bill</h1>
+              <h1>MDR ₹{MAX_CHUNK} Chunker</h1>
               <p>
                 Enter the full amount — it comes back as separate UPI tickets,
                 each ₹{MAX_CHUNK} or under.

@@ -25,37 +25,6 @@ function buildUpiUri(pa, pn, amount) {
   return `upi://pay?${params.toString()}`;
 }
 
-function SunIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-    </svg>
-  );
-}
-
 export default function UPISplitter() {
   const [theme, setTheme] = useState("light");
 
@@ -99,7 +68,11 @@ export default function UPISplitter() {
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         aria-label="Toggle theme"
       >
-        {theme === "light" ? <MoonIcon /> : <SunIcon />}
+        {theme === "light" ? (
+          <i className="ri-moon-line" style={{ fontSize: "1.1rem" }}></i>
+        ) : (
+          <i className="ri-sun-line" style={{ fontSize: "1.1rem" }}></i>
+        )}
       </button>
 
       <div className="layout">

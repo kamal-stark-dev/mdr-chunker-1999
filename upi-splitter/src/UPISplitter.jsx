@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import logo from "./assets/logo.png";
 
 const MAX_CHUNK = 1999;
 
@@ -101,86 +102,111 @@ export default function UPISplitter() {
         {theme === "light" ? <MoonIcon /> : <SunIcon />}
       </button>
 
-      <div className="ticket">
-        <div className="ticket-header">
-          <h1>MDR Chunker ₹1999</h1>
-          <p>
-            Enter the full amount — it comes back as separate UPI tickets, each
-            ₹{MAX_CHUNK} or under.
-          </p>
-        </div>
+      <div className="layout">
+        <div className="panel panel-form">
+          <div className="header-wrapper">
+            <div className="ticket-header">
+              <h1>Split the bill</h1>
+              <p>
+                Enter the full amount — it comes back as separate UPI tickets,
+                each ₹{MAX_CHUNK} or under.
+              </p>
+            </div>
 
-        <div className="perforation" />
-
-        <div className="form">
-          <label>
-            UPI ID
-            <input
-              type="text"
-              placeholder="name@okhdfcbank"
-              value={pa}
-              onChange={(e) => setPa(e.target.value)}
-            />
-          </label>
-          <label>
-            Account holder name
-            <input
-              type="text"
-              placeholder="Kamalveer Singh"
-              value={pn}
-              onChange={(e) => setPn(e.target.value)}
-            />
-          </label>
-          <label>
-            Total amount
-            <div className="amount-input">
-              <span>₹</span>
-              <input
-                type="number"
-                placeholder="0.00"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+            <div className="logo-slot">
+              <img
+                src={logo}
+                alt="Logo"
+                className="logo"
+                onError={(e) => (e.target.style.display = "none")}
               />
             </div>
-          </label>
-          {error && <p className="error">{error}</p>}
-          <button className="generate-btn" onClick={handleGenerate}>
-            Generate tickets
-          </button>
+          </div>
+
+          <div className="perforation" />
+
+          <div className="form">
+            <label>
+              UPI ID
+              <input
+                type="text"
+                placeholder="name@okhdfcbank"
+                value={pa}
+                onChange={(e) => setPa(e.target.value)}
+              />
+            </label>
+            <label>
+              Account holder name
+              <input
+                type="text"
+                placeholder="Kamalveer Singh"
+                value={pn}
+                onChange={(e) => setPn(e.target.value)}
+              />
+            </label>
+            <label>
+              Total amount
+              <div className="amount-input">
+                <span>₹</span>
+                <input
+                  type="number"
+                  placeholder="0.00"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+            </label>
+            {error && <p className="error">{error}</p>}
+            <button className="generate-btn" onClick={handleGenerate}>
+              Generate tickets
+            </button>
+          </div>
         </div>
 
-        {chunks.length > 0 && (
-          <>
-            <div className="perforation" />
-            <div className="stubs">
-              {chunks.map((c, i) => (
-                <div key={i} className="stub">
-                  <div className="stub-qr">
-                    <QRCodeSVG
-                      value={c.uri}
-                      size={128}
-                      fgColor="var(--ink)"
-                      bgColor="transparent"
-                    />
-                  </div>
-                  <div className="stub-info">
-                    <span className="stub-part">
-                      Part {i + 1} of {chunks.length}
-                    </span>
-                    <span className="stub-amount">₹{c.amount.toFixed(2)}</span>
-                    <span className="stub-payee">{pn}</span>
-                    <button
-                      className="copy-btn"
-                      onClick={() => handleCopy(c.uri, i)}
-                    >
-                      {copiedIdx === i ? "Copied" : "Copy link"}
-                    </button>
-                  </div>
-                </div>
-              ))}
+        <div className="panel panel-stubs">
+          {chunks.length === 0 ? (
+            <div className="stubs-empty">
+              <p>
+                Your split QR tickets will show up here once you generate them.
+              </p>
             </div>
-          </>
-        )}
+          ) : (
+            <>
+              <p className="results-count">
+                {chunks.length} ticket{chunks.length > 1 ? "s" : ""}
+              </p>
+              <div className="stubs">
+                {chunks.map((c, i) => (
+                  <div key={i} className="stub">
+                    <div className="stub-qr">
+                      <QRCodeSVG
+                        value={c.uri}
+                        size={128}
+                        fgColor="var(--ink)"
+                        bgColor="transparent"
+                      />
+                    </div>
+                    <div className="stub-info">
+                      <span className="stub-part">
+                        Part {i + 1} of {chunks.length}
+                      </span>
+                      <span className="stub-amount">
+                        ₹{c.amount.toFixed(2)}
+                      </span>
+                      <span className="stub-payee">{pn}</span>
+                      <button
+                        className="copy-btn"
+                        onClick={() => handleCopy(c.uri, i)}
+                      >
+                        {copiedIdx === i ? "Copied" : "Copy link"}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

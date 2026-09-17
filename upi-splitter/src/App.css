@@ -19,6 +19,34 @@
   --accent-soft: #1c2c24;
 }
 
+/* ---- Custom Scrollbar Styling ---- */
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.stubs::-webkit-scrollbar {
+  width: 6px;
+}
+
+.stubs::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 1px dashed var(--line);
+}
+
+.stubs::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.stubs::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft);
+}
+
+/* Firefox Support */
+.stubs {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
 html,
 body,
 #root {
@@ -54,16 +82,35 @@ body,
   z-index: 10;
 }
 
-.ticket {
+/* Layout & Panel Structure */
+.layout {
   width: 100%;
   max-width: 420px;
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout wrapper placing header text and logo side-by-side */
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 12px 24px 28px;
+  gap: 20px;
 }
 
 .ticket-header {
-  padding: 32px 28px 24px;
+  /* padding: 32px 28px 24px; */
+  padding: 0;
+  flex: 1;
 }
 
 .ticket-header h1 {
@@ -81,6 +128,20 @@ body,
   font-size: 0.9rem;
   line-height: 1.5;
   max-width: 34ch;
+}
+
+.logo-slot {
+  padding: 0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
 }
 
 .perforation {
@@ -164,6 +225,31 @@ body,
   opacity: 0.9;
 }
 
+/* Stubs & Results */
+.stubs-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 32px 28px;
+}
+
+.stubs-empty p {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.results-count {
+  padding: 16px 28px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+}
+
 .stubs {
   display: flex;
   flex-direction: column;
@@ -229,70 +315,96 @@ body,
   border-color: var(--accent);
 }
 
+/* ---- Desktop: two-column layout ---- */
+@media (min-width: 760px) {
+  .layout {
+    max-width: 820px;
+    flex-direction: row;
+  }
+  .panel-form {
+    flex: 1;
+    border-right: 1.5px dashed var(--line);
+  }
+  .panel-stubs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .stubs {
+    overflow-y: auto;
+    max-height: 617px;
+  }
+  .perforation {
+    margin: 0 28px;
+  }
+}
+
 /* ---- Mobile ---- */
 @media (max-width: 480px) {
   .page {
     padding: 40px 12px;
   }
-
   .theme-toggle {
     top: 12px;
     right: 12px;
     width: 40px;
     height: 40px;
   }
-
-  .ticket-header {
-    padding: 28px 20px 20px;
+  .header-wrapper {
+    padding: 20px 20px 20px;
+    gap: 12px;
   }
-
+  .ticket-header h1 {
+    font-size: 1.5rem;
+  }
+  .logo-slot {
+    padding: 0;
+  }
+  .logo {
+    width: 150px;
+    height: 150px;
+  }
+  .ticket-header {
+    padding: 20px 0px;
+  }
   .ticket-header h1 {
     font-size: 1.6rem;
   }
-
   .ticket-header p {
     max-width: none;
   }
-
   .perforation {
     margin: 0 14px;
   }
-
   .form {
     padding: 20px 20px 24px;
     gap: 14px;
   }
-
   .form input,
   .amount-input input {
     font-size: 16px; /* prevents iOS auto-zoom on focus */
   }
-
   .generate-btn {
     padding: 14px;
     font-size: 1rem;
   }
-
   .stub {
     flex-direction: column;
     align-items: flex-start;
     padding: 18px 20px;
     gap: 12px;
   }
-
   .stub-qr {
     align-self: center;
   }
-
   .stub-qr svg {
     width: 150px;
     height: 150px;
   }
-
   .stub-amount {
     font-size: 1.15rem;
   }
-
   .copy-btn {
     padding: 8px 14px;
     font-size: 0.85rem;

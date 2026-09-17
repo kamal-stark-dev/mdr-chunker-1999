@@ -130,7 +130,7 @@ export default function UPISplitter() {
               UPI ID
               <input
                 type="text"
-                placeholder="name@okhdfcbank"
+                placeholder="gillbates@oksbi"
                 value={pa}
                 onChange={(e) => setPa(e.target.value)}
               />
@@ -139,7 +139,7 @@ export default function UPISplitter() {
               Account holder name
               <input
                 type="text"
-                placeholder="Kamalveer Singh"
+                placeholder="Gill Bates"
                 value={pn}
                 onChange={(e) => setPn(e.target.value)}
               />

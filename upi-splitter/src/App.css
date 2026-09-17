@@ -1,0 +1,300 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
+:root {
+  --paper: #faf7f0;
+  --ink: #211f1c;
+  --ink-soft: #6b655a;
+  --line: #dad3c3;
+  --accent: #1f6f52;
+  --accent-soft: #e4efe9;
+  --error: #b3261e;
+}
+
+:root.dark {
+  --paper: #141310;
+  --ink: #f2efe7;
+  --ink-soft: #a79f8e;
+  --line: #322f28;
+  --accent: #3fae82;
+  --accent-soft: #1c2c24;
+}
+
+html,
+body,
+#root {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.page {
+  min-height: 100vh;
+  font-family: "IBM Plex Sans", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 56px 20px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.ticket {
+  width: 100%;
+  max-width: 420px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.ticket-header {
+  padding: 32px 28px 24px;
+}
+
+.ticket-header h1 {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 2rem;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.ticket-header p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+.perforation {
+  height: 0;
+  border-top: 1.5px dashed var(--line);
+  margin: 0 20px;
+}
+
+.form {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.form input {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 6px 2px;
+  outline: none;
+  width: 100%;
+}
+
+.form input:focus {
+  border-bottom-color: var(--accent);
+}
+
+.amount-input {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.amount-input:focus-within {
+  border-bottom-color: var(--accent);
+}
+
+.amount-input span {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.amount-input input {
+  border-bottom: none;
+  flex: 1;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+.generate-btn {
+  margin-top: 4px;
+  padding: 12px;
+  border: none;
+  border-radius: 3px;
+  background: var(--accent);
+  color: var(--paper);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.generate-btn:hover {
+  opacity: 0.9;
+}
+
+.stubs {
+  display: flex;
+  flex-direction: column;
+}
+
+.stub {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 20px 28px;
+  border-bottom: 1.5px dashed var(--line);
+}
+
+.stub:last-child {
+  border-bottom: none;
+}
+
+.stub-qr {
+  flex-shrink: 0;
+  background: var(--paper);
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.stub-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.stub-part {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
+.stub-amount {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.stub-payee {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  overflow-wrap: break-word;
+}
+
+.copy-btn {
+  align-self: flex-start;
+  border: 1px solid var(--line);
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  border-color: var(--accent);
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 480px) {
+  .page {
+    padding: 40px 12px;
+  }
+
+  .theme-toggle {
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .ticket-header {
+    padding: 28px 20px 20px;
+  }
+
+  .ticket-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .ticket-header p {
+    max-width: none;
+  }
+
+  .perforation {
+    margin: 0 14px;
+  }
+
+  .form {
+    padding: 20px 20px 24px;
+    gap: 14px;
+  }
+
+  .form input,
+  .amount-input input {
+    font-size: 16px; /* prevents iOS auto-zoom on focus */
+  }
+
+  .generate-btn {
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  .stub {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 20px;
+    gap: 12px;
+  }
+
+  .stub-qr {
+    align-self: center;
+  }
+
+  .stub-qr svg {
+    width: 150px;
+    height: 150px;
+  }
+
+  .stub-amount {
+    font-size: 1.15rem;
+  }
+
+  .copy-btn {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}

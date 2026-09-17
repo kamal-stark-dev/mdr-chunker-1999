@@ -381,6 +381,109 @@ body,
   }
 }
 
+/* Checkmark QR overlay, status bar, and toggle action buttons */
+
+/* ---- Tracker Bar ---- */
+.tracker-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-bottom: 1px dashed var(--line);
+  background: var(--paper);
+}
+
+.tracker-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tracker-item span {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tracker-item strong {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.tracker-item .remaining-val {
+  color: var(--ink);
+}
+
+.tracker-divider {
+  color: var(--line);
+  font-size: 1.2rem;
+}
+
+/* ---- QR Code Overlay & Ticket Completion ---- */
+.stub-qr {
+  position: relative;
+}
+
+.qr-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 247, 240, 0.88); /* Matches --paper with opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  backdrop-filter: blur(2px);
+}
+
+:root.dark .qr-overlay {
+  background: rgba(20, 19, 16, 0.88);
+}
+
+.qr-overlay i {
+  font-size: 3rem;
+  color: var(--accent);
+}
+
+.stub.completed {
+  opacity: 0.75;
+}
+
+/* ---- Actions Layout & Paid Button ---- */
+.stub-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.paid-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.paid-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.paid-btn.is-paid {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
 /* ---- Desktop: two-column layout ---- */
 @media (min-width: 760px) {
   .layout {

@@ -51,7 +51,11 @@ export default function UPISplitter() {
 
     const amounts = splitAmount(total);
     setChunks(
-      amounts.map((amt) => ({ amount: amt, uri: buildUpiUri(pa, pn, amt) })),
+      amounts.map((amt) => ({
+        amount: amt,
+        uri: buildUpiUri(pa, pn, amt),
+        completed: false, // Tracker state
+      })),
     );
   };
 
@@ -60,6 +64,23 @@ export default function UPISplitter() {
     setCopiedIdx(idx);
     setTimeout(() => setCopiedIdx(null), 1500);
   };
+
+  const togglePaid = (idx) => {
+    setChunks((prev) =>
+      prev.map((chunk, i) =>
+        i === idx ? { ...chunk, completed: !chunk.completed } : chunk,
+      ),
+    );
+  };
+
+  // Running sum calculations
+  const totalPaid = chunks
+    .filter((c) => c.completed)
+    .reduce((sum, c) => sum + c.amount, 0);
+
+  const totalRemaining = chunks
+    .filter((c) => !c.completed)
+    .reduce((sum, c) => sum + c.amount, 0);
 
   return (
     <div className="page">
@@ -194,16 +215,33 @@ export default function UPISplitter() {
             </div>
           ) : (
             <>
-              <p className="results-count">
+              {/* Running Sum Header */}
+              <div className="tracker-bar">
+                <div className="tracker-item">
+                  <span>Paid</span>
+                  <strong>₹{totalPaid.toFixed(2)}</strong>
+                </div>
+                <div className="tracker-divider">/</div>
+                <div className="tracker-item">
+                  <span>Remaining</span>
+                  <strong className="remaining-val">
+                    ₹{totalRemaining.toFixed(2)}
+                  </strong>
+                </div>
+              </div>
+              {/* <p className="results-count">
                 {chunks.length} ticket{chunks.length > 1 ? "s" : ""}
-              </p>
+              </p> */}
               <div className="stubs">
                 <p className="info-paragraph">
                   Scan each QR once and confirm the recipient and the amount in
                   your UPI app. Note that payment status isn't tracked here.
                 </p>
                 {chunks.map((c, i) => (
-                  <div key={i} className="stub">
+                  <div
+                    key={i}
+                    className={`stub ${c.completed ? "completed" : ""}`}
+                  >
                     <div className="stub-qr">
                       <QRCodeSVG
                         value={c.uri}
@@ -211,6 +249,11 @@ export default function UPISplitter() {
                         fgColor="var(--ink)"
                         bgColor="transparent"
                       />
+                      {c.completed && (
+                        <div className="qr-overlay">
+                          <i className="ri-checkbox-circle-fill"></i>
+                        </div>
+                      )}
                     </div>
                     <div className="stub-info">
                       <span className="stub-part">
@@ -220,12 +263,27 @@ export default function UPISplitter() {
                         ₹{c.amount.toFixed(2)}
                       </span>
                       <span className="stub-payee">{pn}</span>
-                      <button
-                        className="copy-btn"
-                        onClick={() => handleCopy(c.uri, i)}
-                      >
-                        {copiedIdx === i ? "Copied" : "Copy link"}
-                      </button>
+                      <div className="stub-actions">
+                        <button
+                          className="copy-btn"
+                          onClick={() => handleCopy(c.uri, i)}
+                        >
+                          {copiedIdx === i ? "Copied" : "Copy link"}
+                        </button>
+                        <button
+                          className={`paid-btn ${c.completed ? "is-paid" : ""}`}
+                          onClick={() => togglePaid(i)}
+                        >
+                          <i
+                            className={
+                              c.completed
+                                ? "ri-checkbox-circle-line"
+                                : "ri-checkbox-blank-circle-line"
+                            }
+                          ></i>
+                          {c.completed ? "Paid" : "Mark Paid"}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

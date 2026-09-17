@@ -117,7 +117,7 @@ export default function UPISplitter() {
                 onChange={(e) => setPn(e.target.value)}
               />
             </label>
-            <label>
+            {/* <label>
               Total amount
               <div className="amount-input">
                 <span>₹</span>
@@ -127,6 +127,46 @@ export default function UPISplitter() {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
+              </div>
+            </label> */}
+            <label>
+              Total amount
+              <div className="amount-wrapper">
+                <div className="amount-input">
+                  <span>₹</span>
+                  <input
+                    type="number"
+                    placeholder="0.00"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                </div>
+                <div className="spinner-controls">
+                  <button
+                    type="button"
+                    className="spinner-btn"
+                    aria-label="Increase amount"
+                    onClick={() =>
+                      setAmount((prev) =>
+                        (parseFloat(prev || 0) + 1).toFixed(2),
+                      )
+                    }
+                  >
+                    <i className="ri-arrow-up-s-line"></i>
+                  </button>
+                  <button
+                    type="button"
+                    className="spinner-btn"
+                    aria-label="Decrease amount"
+                    onClick={() =>
+                      setAmount((prev) =>
+                        Math.max(0, parseFloat(prev || 0) - 1).toFixed(2),
+                      )
+                    }
+                  >
+                    <i className="ri-arrow-down-s-line"></i>
+                  </button>
+                </div>
               </div>
             </label>
             {error && <p className="error">{error}</p>}

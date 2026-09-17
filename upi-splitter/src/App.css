@@ -492,3 +492,63 @@ body,
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
 }
+
+/* Disable native number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Custom Number Control Wrapper */
+.amount-wrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.2s ease;
+}
+
+.amount-wrapper:focus-within {
+  border-bottom-color: var(--accent);
+}
+
+.amount-wrapper .amount-input {
+  border-bottom: none; /* Inherit border from wrapper */
+  flex: 1;
+}
+
+/* Custom Arrow Spinner Buttons */
+.spinner-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 6px;
+}
+
+.spinner-btn {
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0 4px;
+  font-size: 0.65rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.spinner-btn:hover {
+  color: var(--accent);
+}
+
+.spinner-btn:active {
+  transform: scale(0.9);
+}

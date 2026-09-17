@@ -407,13 +407,24 @@ body,
 /* ---- Mobile ---- */
 @media (max-width: 480px) {
   .page {
-    padding: 40px 12px;
+    padding: 60px 12px;
   }
   .theme-toggle {
     top: 12px;
     right: 12px;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+  }
+  .social-links {
+    top: 12px;
+    right: 56px;
+    height: 36px;
+    padding: 0 4px;
+  }
+  .social-links a {
+    font-size: 0.95rem;
+    width: 26px;
+    height: 26px;
   }
   .header-wrapper {
     padding: 20px 20px 20px;
